@@ -1,0 +1,41 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class MontyHall {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+
+        System.out.println("Bem vindo ao jogo do Monty Hall!");
+        System.out.println("Existem três portas na sua frente e atrás de uma delas está um carro.");
+
+        int carroAtras = random.nextInt(3) + 1;
+
+        System.out.print("Escolha uma porta (1, 2 ou 3): ");
+        int escolhaJogador = scanner.nextInt();
+        int portaAbertaPorMonty;
+        do {
+            portaAbertaPorMonty = random.nextInt(3) + 1;
+        } while (portaAbertaPorMonty == carroAtras || portaAbertaPorMonty == escolhaJogador);
+
+        System.out.println("Monty abre a porta " + portaAbertaPorMonty + " e você vê um bode.");
+        System.out.print("Você deseja mudar de porta? (Sim/Não): ");
+        String mudarPorta = scanner.next();
+
+        if (mudarPorta.equalsIgnoreCase("Sim")) {
+            int portaEscolhidaOriginal = escolhaJogador;
+            do {
+                escolhaJogador = random.nextInt(3) + 1;
+            } while (escolhaJogador == portaEscolhidaOriginal || escolhaJogador == portaAbertaPorMonty);
+        }
+
+        System.out.println("Você escolheu a porta " + escolhaJogador + ".");
+        if (escolhaJogador == carroAtras) {
+            System.out.println("Parabéns! Você ganhou o carro!");
+        } else {
+            System.out.println("Você não ganhou o carro. O carro estava atrás da porta " + carroAtras + ".");
+        }
+        scanner.close();
+    }
+}
